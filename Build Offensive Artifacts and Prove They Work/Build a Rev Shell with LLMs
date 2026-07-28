@@ -5,5 +5,5 @@
 You should know the drill! 
 
 ```
-
+nc -lvnp 4444
 ```
