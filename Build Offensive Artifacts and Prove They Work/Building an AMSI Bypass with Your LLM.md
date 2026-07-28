@@ -1,13 +1,13 @@
-###BYPASS AMSI!!!
+### BYPASS AMSI!!!
 <img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/2a5ac7ab-5420-489f-929c-003f65de9d2e" />
 
 
-##AMSI
+## AMSI
 The Anitmalware Scan Interface is a windows api that lets anitiviruse products inspect script content before it runs. So we want to bypass this for sure. 
 Every time PowerShell executes a command, it calls AmisiScanBuffer in amsi.dll, passing the script text. Defender hooks this call and returns AMSI_RESULT_DETECTED if the 
 content matches a know malicious signature. This bypass overwrites the first few instructions of AmisiScanBuffer. 
 
-###Step One:
+### Step One:
 Prompt the AI model:
 ```
 Write a PowerShell function that patches AmsiScanBuffer in memory so it always returns AMSI_RESULT_CLEAN.
@@ -19,14 +19,14 @@ The model returns a PowerShell function. Copy it into a .ps1 file on your local 
 The easiest method is to copy the PowerShell code from your editor and paste it into Notepad on the RDP session. 
 Save as C:\Users\Administrator\Invoke-AmsiBypass.ps1. You can use SCP or the RDP clipboard file copy as alternatives.
 
-###Step 2 Read the Code Before You Run It: 
+### Step 2 Read the Code Before You Run It: 
 Code Verification ChecklistBefore executing the generated PowerShell script, verify it contains these five distinct components to ensure a successful AMSI bypass:
 Process Loading: Contains GetHINSTANCE or Add-Type to load amsi.dll.Offset 
 Discovery: Locates AmsiScanBuffer using GetProcAddress or AmsiUtils.Memory Modification: Adjusts memory permissions to 0x40 (PAGE_EXECUTE_READWRITE) via VirtualProtect.Byte 
 Patching: Overwrites memory using WriteByte or Copy with specific hex values (0xB8, 0x57, 0x00, 0x07, 0x80, 0xC3).Permission 
 Reset: Restores original memory protections using a second VirtualProtect call.
 
-###Step 3 Verify AMSI is Armed Before the Bypass
+### Step 3 Verify AMSI is Armed Before the Bypass
 Test with RDP
 Open PowerShell and try a real AMSI trigger:
 ```
@@ -34,7 +34,7 @@ Open PowerShell and try a real AMSI trigger:
 ```
 You should see if content is blocked 
 
-###Step 4 Load the Bypass and re-test
+### Step 4 Load the Bypass and re-test
 ```
 . .\Invoke-AmsiBypass.ps1
 Invoke-AmsiBypass
